@@ -1,0 +1,43 @@
+.sale-item {
+  display: table-row; /* Ensures rows behave like table rows */
+}
+
+.column-part-number {
+  width: 15%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.column-description {
+  width: 35%;
+  text-align: left;
+  white-space: normal;
+  word-wrap: break-word; /* Allows wrapping for longer text */
+}
+
+.column-mrp,
+.column-discount,
+.column-sgst,
+.column-cgst,
+.column-net-price {
+  width: 10%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .sale-item td {
+    font-size: 12px;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sale-item td {
+    font-size: 10px;
+    padding: 4px;
+  }
+}
