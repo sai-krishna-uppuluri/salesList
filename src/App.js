@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { FixedSizeList as List } from "react-window"; // Import virtualization library
 import "./App.css";
 import { SalesDataDisplay } from "./components/SalesDataDisplay";
-import salesData from "./datafile/output.json"; // Assuming data is in output.json
+import salesData from "./datafile/final_output.json"; // Assuming data is in output.json
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
+  // const [searchField, setSearchField] = useState("part_number");
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
   };
 
-  const filteredSalesData = searchQuery
+  /* const filteredSalesData = searchQuery
     ? salesData.filter((data) => {
         const partNumber = data["Part Number"];
         if (!partNumber) return false;
@@ -26,7 +27,42 @@ function App() {
           .replace(/-/, "");
         return normalizedPartNumber.includes(normalizedQuery);
       })
-    : salesData; // Display all data initially
+    : salesData; // Display all data initially */
+
+  const filteredSalesData = searchQuery
+    ? salesData.filter((data) => {
+        const partNumber = data["Part_Number"]
+          ? data["Part_Number"].toString().toLowerCase()
+          : "";
+        const description = data["Description"]
+          ? data["Description"].toString().toLowerCase()
+          : "";
+        const normalizedQuery = searchQuery
+          .replace(/\s+/g, "")
+          .replace(/-/g, "");
+
+        return (
+          partNumber
+            .replace(/\s+/g, "")
+            .replace(/-/g, "")
+            .includes(normalizedQuery) ||
+          description
+            .replace(/\s+/g, "")
+            .replace(/-/g, "")
+            .includes(normalizedQuery)
+        );
+      })
+    : salesData;
+
+  const display_keys = [
+    "Part_Number",
+    "Description",
+    "MRP",
+    "Discount",
+    "SGST",
+    "CGST",
+    "Net_price",
+  ];
 
   return (
     <div className="App">
@@ -48,7 +84,7 @@ function App() {
         <div className="div-table-container">
           {/* Render Header */}
           <div className="div-table-header">
-            {Object.keys(filteredSalesData[0]).map((key, index) => (
+            {display_keys.map((key, index) => (
               <div
                 key={index}
                 className={`div-column div-column-${key
@@ -69,7 +105,10 @@ function App() {
           >
             {({ index, style }) => (
               <div style={style} className="div-table-row">
-                <SalesDataDisplay eachSalesData={filteredSalesData[index]} />
+                <SalesDataDisplay
+                  eachSalesData={filteredSalesData[index]}
+                  display_keys={display_keys}
+                />
               </div>
             )}
           </List>

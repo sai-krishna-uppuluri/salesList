@@ -1,17 +1,17 @@
 import React from "react";
 import "./SalesDataDisplay.css";
 
-export const SalesDataDisplay = ({ eachSalesData }) => {
+export const SalesDataDisplay = ({ eachSalesData, display_keys }) => {
   return (
     <>
-      {Object.entries(eachSalesData).map(([key, value], index) => (
+      {display_keys.map((key, index) => (
         <div
           key={index}
           className={`div-column div-column-${key
             .toLowerCase()
             .replace(/\s+/g, "-")}`}
         >
-          {value || "N/A"}
+          {eachSalesData[key] || "N/A"}
         </div>
       ))}
     </>

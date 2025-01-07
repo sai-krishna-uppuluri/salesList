@@ -56,6 +56,23 @@
   text-overflow: ellipsis;
 }
 
+.div-column-part-number {
+  flex: 1.5;
+}
+
+.div-column-net-price {
+  flex: 1.5;
+}
+
+.div-column-mrp {
+  flex: 1;
+}
+
+.div-column-sgst,
+.div-column-cgst {
+  flex: 0.5;
+}
+
 .div-column-description {
   flex: 3; /* Make description column wider */
   white-space: normal;
