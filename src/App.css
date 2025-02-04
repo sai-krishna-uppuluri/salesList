@@ -58,10 +58,15 @@
 
 .div-column-part-number {
   flex: 3;
+  font-size: 3px;
 }
 
 .div-column-net-price {
-  flex: 1.5;
+  flex: 1;
+}
+
+.div-column-discount {
+  flex: 1;
 }
 
 .div-column-mrp {
@@ -70,11 +75,11 @@
 
 .div-column-sgst,
 .div-column-cgst {
-  flex: 0.5;
+  flex: 1;
 }
 
 .div-column-description {
-  flex: 3; /* Make description column wider */
+  flex: 1; /* Make description column wider */
   white-space: normal;
   word-wrap: break-word; /* Allows wrapping for long text */
 }
@@ -88,6 +93,11 @@
   .input-search {
     width: 100%;
     max-width: 300px;
+  }
+
+  .div-column-part-number {
+    flex: 3.5;
+    font-size: 6px;
   }
 
   .div-column {
@@ -109,7 +119,69 @@
     word-wrap: break-word; /* Wrap long text */
   }
 
+  .div-column-part-number {
+    flex: 3.5;
+    font-size: 6px;
+  }
+
   .div-table-container {
     overflow-x: scroll;
+  }
+}
+/* Tabs Container */
+.tabs-container {
+  display: flex;
+  justify-content: center; /* Center align the tabs */
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Individual Tab Button */
+.tab-button {
+  background-color: #fff;
+  color: black;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  padding: 10px 16px;
+  width: 100px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Tab Button Hover Effect */
+.tab-button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Active Tab Styling */
+.activeClass {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: 2px solid #0056b3;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Normal (Inactive) Tab Styling */
+.normalClass {
+  background-color: #fff;
+  color: black;
+  border: 2px solid #ccc;
+}
+
+/* Responsive Tabs for Small Screens */
+@media (max-width: 768px) {
+  .tabs-container {
+    flex-wrap: wrap; /* Allow tabs to wrap in smaller screens */
+    justify-content: center;
+  }
+
+  .tab-button {
+    width: auto;
+    padding: 8px 12px;
+    font-size: 14px;
   }
 }

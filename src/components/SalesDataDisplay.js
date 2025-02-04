@@ -2,6 +2,10 @@ import React from "react";
 import "./SalesDataDisplay.css";
 
 export const SalesDataDisplay = ({ eachSalesData, display_keys }) => {
+  /* function onClickEachSalesData = () => {
+    handleClickOnEachSalesData();
+  } */
+
   return (
     <>
       {display_keys.map((key, index) => (

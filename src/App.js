@@ -3,34 +3,22 @@ import { FixedSizeList as List } from "react-window"; // Import virtualization l
 import "./App.css";
 import { SalesDataDisplay } from "./components/SalesDataDisplay";
 import salesData from "./datafile/final_output.json"; // Assuming data is in output.json
+import toyotaData from "./datafile/toyota_final.json";
 
 function App() {
+  const tabs = ["Kirti", "Toyota"];
+
   const [searchQuery, setSearchQuery] = useState("");
-  // const [searchField, setSearchField] = useState("part_number");
+  const [activeTabId, setActiveTabId] = useState(tabs[0]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
   };
 
-  /* const filteredSalesData = searchQuery
-    ? salesData.filter((data) => {
-        const partNumber = data["Part Number"];
-        if (!partNumber) return false;
-        // Normalize both user input and part number by removing spaces
-        const normalizedPartNumber = partNumber
-          .toString()
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .replace(/-/g, "");
-        const normalizedQuery = searchQuery
-          .replace(/\s+/g, "")
-          .replace(/-/, "");
-        return normalizedPartNumber.includes(normalizedQuery);
-      })
-    : salesData; // Display all data initially */
+  const selectedData = activeTabId === "Kirti" ? salesData : toyotaData;
 
   const filteredSalesData = searchQuery
-    ? salesData.filter((data) => {
+    ? selectedData.filter((data) => {
         const partNumber = data["Part_Number"]
           ? data["Part_Number"].toString().toLowerCase()
           : "";
@@ -52,9 +40,9 @@ function App() {
             .includes(normalizedQuery)
         );
       })
-    : salesData;
+    : selectedData;
 
-  const display_keys = [
+  const kirti_keys = [
     "Part_Number",
     "Description",
     "MRP",
@@ -64,11 +52,40 @@ function App() {
     "Net_price",
   ];
 
+  const toyota_keys = ["Part_Number", "Description", "MRP"];
+
+  function onClickEachTab(tabId) {
+    // console.log("reached", tabId);
+
+    setActiveTabId(tabId);
+  }
+
+  const display_keys =
+    activeTabId.toLocaleLowerCase() === "kirti" ? kirti_keys : toyota_keys;
+
+  const getTabClass = (eachTab) =>
+    activeTabId === eachTab ? "activeClass" : "normalClass";
+
   return (
     <div className="App">
       <header className="header-class">
         <h1>KIRTI AGENCIES</h1>
       </header>
+
+      <div className="tabs-container">
+        {tabs.map((eachTab, index) => {
+          return (
+            <div key={index} className="tab-button-container">
+              <button
+                className={`tab-button ${getTabClass(eachTab)}`}
+                onClick={() => onClickEachTab(eachTab)}
+              >
+                {eachTab}
+              </button>
+            </div>
+          );
+        })}
+      </div>
 
       <div className="input-search-container">
         <input
@@ -95,7 +112,6 @@ function App() {
               </div>
             ))}
           </div>
-
           {/* Virtualized Rows */}
           <List
             height={400} // Adjust height based on container
